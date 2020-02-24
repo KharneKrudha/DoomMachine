@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Doom Machine</title>
+    <link href='https://fonts.googleapis.com/css?family=Geostar Fill' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script  src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<style>
+
+body {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+  padding-top: 30px;
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: black;
+}
+
+/*TABLE NUMBERS LENGTH*/
+#tableNumbers {
+  border-collapse: collapse;
+  position: absolute;
+  left: 310px;
+  top: 158px;
+  width: 706px;
+  max-width: 706px;
+  height: 15px;
+  max-height: 15px;
+}
+
+.cellsLength{
+  width: 30px;
+  max-width: 30px;
+  border: 2px solid cyan;
+  background-color: transparent;
+  color: red;
+  font-size: 10px;
+  font-family: 'Geostar Fill';
+  text-align: center;
+  user-select: none;
+}
+
+/* GRID CELLS TO CLICK*/
+#tableGrid {
+  border-collapse: collapse;
+  position: absolute;
+  left: 310px;
+  top: 181px;
+  border: 3px solid cyan;
+  width: 706px;
+  cursor: pointer;
+}
+
+.cellsGrid {
+  height: 43px;
+  width: 30px;
+  border: 1px solid cyan;
+  background-color: transparent;
+  animation-name: grid;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+}
+
+@keyframes grid {
+  0% {background-color: black;
+      color: red;}
+  25% {background-color: cyan;
+       color: black;}
+  50% {background-color: #999999;
+       color: white;}
+  75% {background-color: white;
+       color: cyan;}
+  100% {background-color: black;
+        color: #999999;}
+}
+
+/*TABLE SAMPLES*/
+.tableSounds {
+  border-collapse: collapse;
+  position: absolute;
+  left: 150px;
+  top: 181px;
+  border: 3px solid cyan;
+  width: 100px;
+}
+ 
+.tdSamples {
+  height: 41px;
+  width: 30px;
+  left: 0px;
+  border: 3px solid cyan;
+  color: #999999;
+  text-align: left;
+  font-family: 'Geostar Fill';
+  font-size: 15px;
+  padding-left: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tdSamples:hover{
+  text-shadow: 0px 0px 10px rgba(255,255,100,1);
+}
+
+.tdSamplesChanges {
+  animation-name: changes;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+}
+
+@keyframes changes {
+  0% {background-color: black;
+      color: red;}
+  25% {background-color: cyan;
+       color: black;}
+  50% {background-color: #999999;
+       color: white;}
+  75% {background-color: white;
+       color: cyan;}
+  100% {background-color: black;
+        color: #999999;}
+}
+
+/*SLIDER VOLUME*/
+.slidVol {
+  -webkit-appearance: none;
+  width: 39px;
+  height: 3px;
+  background: #999999;;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+
+}
+
+.slidVol::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 7px;
+  height: 10px;
+  background: cyan;
+  cursor: pointer;
+  z-index: 1
+}
+
+.slidVol::-moz-range-thumb {
+  width: 25px;
+  height: 3px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+/*BPM*/
+#tableBpm{
+  position: absolute;
+  top: 113px;
+  left: 310px;
+  height: 35px;
+  width: 128px;
+  border: 3px solid cyan;
+}
+
+#showBpm{
+  position: absolute;
+  top: 6px;
+  left: 3px;
+  height: 18px;
+  width: 82px;
+  border: 1px solid cyan;
+  font-family: 'Geostar Fill';
+  font-size: 15px;
+  text-align: center;
+  padding-top: 3px;
+  color: red;
+  user-select: none;
+}
+
+.slidBpm {
+  -webkit-appearance: none;
+  position: absolute;
+  top: 14px;
+  left: 90px;
+  width: 32px;
+  height: 3px;
+  background: #999999;;
+  outline: none;
+  opacity: 0.7;
+  transform: rotate(90deg);
+  -webkit-transition: .2s;
+}
+
+.slidBpm::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 7px;
+  height: 10px;
+  background: cyan;
+  cursor: pointer;
+  z-index: 1
+}
+
+.slidBpm::-moz-range-thumb {
+  width: 25px;
+  height: 3px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+/*BOX - PLAY,PAUSE,STOP AND CLEAR*/
+#tableButtons {
+  position: absolute;
+  top: 113px;
+  left: 150px;
+  height: 26px;
+  width: 149px;
+  border: 3px solid cyan;
+  cursor: pointer;
+}
+
+/* INPUT TYPE RANGE BOX*/
+#tableInpRange {
+  border-collapse: collapse;
+  position: absolute;
+  left: 254px;
+  top: 181px;
+  border: 3px solid cyan;
+  width: 40px;
+}
+
+.tdRange {
+  height: 41px;
+  width: 30px;
+  left: 0px;
+  border: 3px solid cyan;
+  color: #999999;
+  cursor: pointer;
+}
+
+/*DROPDOWN LENGTH BEAT*/
+.dropLength {
+  position: absolute;
+  top: 126px;
+  left: 448px;
+  height: 17px;
+  width: 79px;
+  border: 3px solid cyan;
+  text-align: center;
+  padding-top: 5px;
+  letter-spacing: 3px;
+  font-family: 'Geostar Fill';
+  font-size: 9px;
+  color: white;
+  cursor: pointer;
+}
+
+.dropLength-content {
+  display: none;
+  position: absolute;
+  top: 22px;
+  right: -3px;
+  width: 79px;
+  background-color: black;
+  border-top: 1px solid #999999;
+  border-right: 3px solid #999999;
+  border-bottom: 3px solid #999999;
+  border-left: 3px solid #999999;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropLength-content p {
+  text-align: left;
+  padding-top: 5px;
+  padding-left: 5px;
+  letter-spacing: 3px;
+  font-family: 'Geostar Fill';
+  font-size: 11px;
+  color: #999999;
+  user-select: none;
+}
+
+#len1{
+  color:red;
+}
+
+#len1:hover{
+  text-shadow: 0px 0px 10px rgba(255,255,100,1);
+}
+
+#len2:hover{
+  text-shadow: 0px 0px 10px rgba(255,255,100,1);
+}
+
+.dropLength:hover{
+  color: red;
+  border-color: gray;
+}
+
+.dropLength:hover .dropLength-content {
+  display: block;
+}
+
+/*DROPDOWN ARTILLERY*/
+.dropdown {
+  position: absolute;
+  top: 149px;
+  left: 150px;
+  height: 17px;
+  width: 150px;
+  border: 3px solid cyan;
+  text-align: center;
+  padding-top: 5px;
+  letter-spacing: 3px;
+  font-family: 'Geostar Fill';
+  font-size: 11px;
+  color: #999999;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 22px;
+  right: -3px;
+  width: 150px;
+  background-color: black;
+  border-top: 1px solid #999999;
+  border-right: 3px solid #999999;
+  border-bottom: 3px solid #999999;
+  border-left: 3px solid #999999;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content p {
+  text-align: left;
+  padding-top: 5px;
+  padding-left: 5px;
+  letter-spacing: 3px;
+  font-family: 'Geostar Fill';
+  font-size: 11px;
+  color: #999999;
+  user-select: none;
+}
+
+.dropdown:hover{
+  border-color: #999999;
+  color: red;
+}
+
+#drop1{
+  color:red;
+}
+
+#drop1:hover{
+  text-shadow: 0px 0px 10px rgba(255,255,100,1);
+}
+
+#drop2:hover{
+  text-shadow: 0px 0px 10px rgba(255,255,100,1);
+}
+
+#drop3:hover{
+  text-shadow: 0px 0px 10px rgba(255,255,100,1);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+ /* HOVER AND CHANGES ON COLORS*/
+.hovColor {
+  background-color: #333333; 
+  opacity: 0.6;
+}
+
+.changeColor {
+  height: 43px;
+  width: 30px;
+  border: 1px solid cyan;
+  background-color: #333333;
+}
+
+ /* BUTTONS AND HOVER*/
+.play {
+  position: absolute;
+  top: 116px;
+  left: 150px;
+  color: cyan;
+  background-color: transparent;
+  text-align: left;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.play:hover {
+  text-shadow: 0px 0px 10px rgba(255,255,100,1);
+}
+
+.pause {
+  position: absolute;
+  top: 116px;
+  left: 191px;
+  color: #999999;
+  background-color: transparent;
+  text-align: left;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.pause:hover { 
+  text-shadow: 0px 0px 10px rgba(255,255,100,1);
+}
+
+.stop {
+  position: absolute;
+  top: 116px;
+  left: 229px;
+  color: red;
+  background-color: transparent;
+  outline: none;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+}
+
+.stop:hover {
+  text-shadow: 0px 0px 10px rgba(255,255,100,1);
+}
+
+.clear {
+  position: absolute;
+  top: 116px;
+  left: 265px;
+  color: white;
+  background-color: transparent;
+  outline: none;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+}
+
+.clear:hover {
+  text-shadow: 0px 0px 10px rgba(255,255,100,1);
+}
+
+.tabColor{
+  background-color: cyan;
+  opacity: 0.2;
+}
+
+#initText {
+  position: absolute;
+  top: 100px;
+  left: 639px;
+  letter-spacing: 3px;
+  font-family: 'Geostar Fill';
+  font-size: 30px;
+  color: #999999;
+  user-select: none;
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+    <div id="tableCells"></div>
+    <div id="tableCells32"></div>
+    <div id="tableSamples1"></div>
+    <div id="tableSamples2"></div>
+    <div id="tableSamples3"></div>
+    <div id="tableLength"></div>
+    <div id="tableButtons"></div>
+    <div id="tableRange"></div>
+    <div id="tableArtillery"></div>
+    <h1 id="initText">DOOM MACHINE</h1>
+    
+    <div id="tableBpm">
+      <div id="showBpm"></div>
+      <input type="range" min="105" max="135" class="slidBpm" id="myRange" onclick="modifyBpm()">
+    </div>
+
+    <button class='play' onclick="buttonPlay()"><i class="material-icons">&#xe236;</i></button>
+    <button class='pause' onclick="buttonPause()"><i class="material-icons">&#xe234;</i></button>
+    <button class='stop' onclick="buttonStop()"><i class="material-icons">&#xe237;</i></button>
+    <button class='clear' onclick="buttonClear()"><i class="material-icons">&#xe22f;</i></button>
+
+    <!-- DEADLY TRAP KIT -->
+    <audio src="sounds/bleep.wav" autostart="false" id="bleep"></audio>
+    <audio src="sounds/fxxx.wav" autostart="false" id="fxxx"></audio>
+    <audio src="sounds/nail.wav" autostart="false" id="nail"></audio>
+    <audio src="sounds/hat_20.wav" autostart="false" id="hat"></audio>
+    <audio src="sounds/teeth.mp3" autostart="false" id="teeth"></audio>
+    <audio src="sounds/snare.wav" autostart="false" id="snare"></audio>
+    <audio src="sounds/kick_7.wav" autostart="false" id="kick"></audio>
+    <audio src="sounds/angrysub.wav" autostart="false" id="sub"></audio>
+
+    <!-- POWER TECH KIT -->
+    <audio src="sounds/deal.mp3" autostart="false" id="deal"></audio>
+    <audio src="sounds/noise.mp3" autostart="false" id="noise"></audio>
+    <audio src="sounds/clang.mp3" autostart="false" id="clang"></audio>
+    <audio src="sounds/chars.mp3" autostart="false" id="chars"></audio>
+    <audio src="sounds/flex.mp3" autostart="false" id="flex"></audio>
+    <audio src="sounds/door.mp3" autostart="false" id="door"></audio>
+    <audio src="sounds/march.mp3" autostart="false" id="march"></audio>
+    <audio src="sounds/low.mp3" autostart="false" id="low"></audio>
+    
+    <!-- CORE BREAK KIT -->
+    <audio src="sounds/drone.mp3" autostart="false" id="drone"></audio>
+    <audio src="sounds/smack.mp3" autostart="false" id="smack"></audio>
+    <audio src="sounds/wurth.mp3" autostart="false" id="wurth"></audio>
+    <audio src="sounds/grind.mp3" autostart="false" id="grind"></audio>
+    <audio src="sounds/tiger.mp3" autostart="false" id="tiger"></audio>
+    <audio src="sounds/perc.mp3" autostart="false" id="perc"></audio>
+    <audio src="sounds/step.mp3" autostart="false" id="step"></audio>
+    <audio src="sounds/down.mp3" autostart="false" id="down"></audio>
+
+<script >
+
+        // FUNCTIONS
+        $(document).ready(function(){
+                initCreateGrid();
+                tableDeadlyTrap(); 
+                initPatternHover();
+                initTableLength();
+                initRange();
+                initDropDown();
+                effectSample();
+                modifyBpm();
+            });
+
+        // PLAY SAMPLE WHEN CLICK TABLE SAMPLES
+        function playSample(sound, index){
+          var sample = document.getElementById(sound);
+          var sampleCloned = sample.cloneNode(true);
+
+          var slider = document.getElementById('slider'+index);
+          var volume = slider.value / 100;
+
+          sampleCloned.volume = volume;
+          sampleCloned.play();
+        }
+        
+        // CREATE THE GRIDS
+        function initCreateGrid(){
+          var tblCells = '<table id="tableGrid">';
+            for(var i=0; i<8; i++){
+              tblCells +='<tr>';
+                for(var j=0;j<16;j++){
+                  tblCells +='<td class="cellsGrid" id="cell' + i  + '-' + j +'" onclick="toggleColor(this)">';
+                  tblCells +='</td>';
+                }
+                tblCells +='</tr>';
+            }
+            tblCells +='</table>';
+            $('#tableCells').append(tblCells);
+        }
+
+        // DEFINE BEAT LENGTH
+        function initTableLength(){
+          var tblLength = '<table id="tableNumbers">';
+                tblLength +='<tr>';
+                for(var i=0; i<16; i++){
+                  tblLength +='<td class="cellsLength">';
+                  tblLength += i+1;
+                  tblLength +='</td>';
+                }
+                tblLength +='</tr>';
+                tblLength +='</table>';
+                $('#tableLength').append(tblLength);
+        } 
+
+        // GLOBAL ARRAY DEADLY TRAP KIT
+        var dTrap = ["bleep", "fxxx", "nail", "hat", "teeth", "snare", "kick", "sub"];
+        // GLOBAL ARRAY POWER TECH KIT
+        var pTech = ["deal", "noise", "clang", "chars", "flex", "door", "march", "low"];
+        // GLOBAL ARRAY CORE BREAK KIT
+        var cBreak = ["drone", "smack", "wurth", "grind", "tiger", "perc", "step", "down"];
+ 
+        // CREATE TABLES KIT IN ROW
+        var deadlyTrap = ["Bleep", "FxXx", "Nail", "Hat", "Teeth", "Tricky", "Hit", "Sub"];
+        var powerTech = ["Deal", "Noise", "Clang", "Chars", "Flex", "Door", "March", "Lower"];
+        var coreBreak = ["Drone", "Smack", "Wurth", "Grind", "Tiger", "Perc", "Step", "Down"];
+        
+        var choosenKit = 'dTrap';
+
+        function tableDeadlyTrap(){
+          var tblSoundsRow1 = '<table class="tableSounds">';
+            for (var indxx1=0; indxx1<8; indxx1++) {
+              tblSoundsRow1 += '<tr> <td class="tdSamples" onclick="playSample(\'' + dTrap[indxx1] + ', '+ indxx1 +'\')">';
+                tblSoundsRow1 += deadlyTrap[indxx1];
+                tblSoundsRow1 += '</td> </tr>';
+            }
+            tblSoundsRow1 +='</table>';
+            $('#tableSamples1').append(tblSoundsRow1);
+        }
+
+        function tablePowerTech(){
+          var tblSoundsRow2 = '<table class="tableSounds">';
+            for (var indxx2=0; indxx2<8; indxx2++) {
+              tblSoundsRow2 += '<tr> <td class="tdSamples" onclick="playSample(\'' + pTech[indxx2] + ',' + indxx2 +'\')">';
+                tblSoundsRow2 += powerTech[indxx2];
+                tblSoundsRow2 += '</td> </tr>';
+            }
+            tblSoundsRow2 +='</table>';
+            $('#tableSamples2').append(tblSoundsRow2);
+        }
+
+        function tableCoreBreak(){
+          var tblSoundsRow3 = '<table class="tableSounds">';
+            for (var indxx3=0; indxx3<8; indxx3++) {
+              tblSoundsRow3 += '<tr> <td class="tdSamples" onclick="playSample(\'' + cBreak[indxx3] + ',' + indxx3 + '\')">';
+                tblSoundsRow3 += coreBreak[indxx3];
+                tblSoundsRow3 += '</td> </tr>';
+            }
+            tblSoundsRow3 +='</table>';
+            $('#tableSamples3').append(tblSoundsRow3);
+        }
+
+        // DROPDOWN ARTILLERY
+        function initDropDown(){
+          var dropMenu = '<div class="dropdown">';
+              dropMenu += 'ARTILLERY +';
+              dropMenu += '<div class="dropdown-content">';
+              dropMenu += '<p id="drop1" onclick="drumKit1()">| Deadly Trap</p>';
+              dropMenu += '<p id="drop2" onclick="drumKit2()">| Power Tech</p>';
+              dropMenu += '<p id="drop3" onclick="drumKit3()">| Core Break</p>';
+              dropMenu += '</div>';
+              dropMenu += '</div>';
+            $('#tableArtillery').append(dropMenu);
+        }
+
+        // TOGGLE MENU DRUM KIT
+        function drumKit1(){
+            tableDeadlyTrap();
+            $('#tableSamples1').show();
+            $('#tableSamples2').hide();
+            $('#tableSamples3').hide();
+            $('#drop1').css("color", "red");
+            $('#drop2').css("color", "#999999");
+            $('#drop3').css("color", "#999999");
+            choosenKit = 'dTrap';
+        }
+
+        function drumKit2(){
+            tablePowerTech();
+            $('#tableSamples2').show();
+            $('#tableSamples1').hide();
+            $('#tableSamples3').hide();
+            $('#drop1').css("color", "#999999");
+            $('#drop3').css("color", "#999999");
+            $('#drop2').css("color", "red");
+            choosenKit = 'pTech';
+        }
+
+        function drumKit3(){
+            tableCoreBreak();
+            $('#tableSamples3').show();
+            $('#tableSamples1').hide();
+            $('#tableSamples2').hide();
+            $('#drop1').css("color", "#999999");
+            $('#drop2').css("color", "#999999");
+            $('#drop3').css("color", "red");
+            choosenKit = 'cBreak';
+        }
+
+        // CREATE INPUT VOLUME
+        function initRange(){
+          var tblInpRan = '<table id="tableInpRange">';
+            for (var i=0; i<8; i++) {
+              tblInpRan += '<tr> <td class="tdRange">';
+              tblInpRan += '<input type="range" class="slidVol" id="slider' + i +'" onclick="modifyVol('+ i +')" min="1" max="100">';
+              tblInpRan += '</td> </tr>';
+            }
+            tblInpRan += '</table>';
+            $('#tableRange').append(tblInpRan);
+        }
+           
+        // HOVER OVER THE GRID
+        function initPatternHover(){
+          $('.cellsGrid').hover(function(){
+          $(this).toggleClass('hovColor'); 
+          });
+        }
+
+        // TOGGLE THE COLOR OF A SELECTED CELL
+        function toggleColor(el){
+          if(el.classList.contains("cellsGrid")){
+            el.classList.replace("cellsGrid", "changeColor");
+          } else {
+              el.classList.replace("changeColor", "cellsGrid");
+            }
+        }
+
+        // SAMPLE ANIMATION ON CLICK
+        function effectSample(){
+          $( document ).on("click" , '.tdSamples' , function(){  
+          $(this).addClass("tdSamplesChanges");
+            setTimeout(function(){
+            $('.tdSamples').removeClass("tdSamplesChanges");
+            },300);
+          });
+        }
+
+        // MODIFY BPM
+        var newBpm;
+        var tabBpm;
+
+        function modifyBpm(){
+          var slider = document.getElementById("myRange");
+          var output = document.getElementById("showBpm");
+          output.innerHTML = slider.value;
+          newBpm = 60000 / slider.value;
+          tabBpm = newBpm - 50;
+
+          slider.oninput = function() {
+            output.innerHTML = this.value;
+            newBpm = 60000 / this.value;
+            tabBpm = newBpm - 50;
+          }
+        }
+        
+        // PLAY, PAUSE, STOP AND CLEAR...
+        var mySet;
+        var myFunctionSet;
+        var indx = 0;
+        var idx = 0;
+        var jdx;
+       
+        function newFunctOutside(){
+          if(choosenKit == 'dTrap'){
+            for(jdx=0;jdx<8;jdx++){
+              var indexCell = document.getElementById('cell' + jdx + '-' + indx);
+              indexCell.classList.add('tabColor'); 
+              removeLine(indexCell);            
+              if (indexCell.classList.contains("changeColor")){
+                playSample(dTrap[jdx], jdx);
+              }   
+            }             
+              indx++;
+              if(indx==16){
+                indx = 0;
+              }
+          }
+          else if(choosenKit == 'pTech'){
+            for(jdx=0;jdx<8;jdx++){
+              var indexCell = document.getElementById('cell' + jdx + '-' + indx);
+              indexCell.classList.add('tabColor'); 
+              removeLine(indexCell);            
+              if (indexCell.classList.contains("changeColor")){
+                playSample(pTech[jdx], jdx);
+              }   
+            }             
+              indx++;
+              if(indx==16){
+                indx = 0;
+              }
+          }
+          else if(choosenKit == 'cBreak'){
+            for(jdx=0;jdx<8;jdx++){
+              var indexCell = document.getElementById('cell' + jdx + '-' + indx);
+              indexCell.classList.add('tabColor'); 
+              removeLine(indexCell);            
+              if (indexCell.classList.contains("changeColor")){
+                playSample(cBreak[jdx], jdx);
+              }   
+            }             
+              indx++;
+              if(indx==16){
+                indx = 0;
+              }
+          }
+        }
+
+        function removeLine(indxCell){
+          setTimeout(function(){
+            indxCell.classList.remove('tabColor');
+          }, tabBpm);
+        }
+
+        function buttonPlay(){
+          newFunctOutside();
+          myFunctionSet = setInterval(function(){
+            newFunctOutside();
+          }, newBpm);
+        }
+
+        function buttonPause(){
+          clearInterval(myFunctionSet);
+        } 
+
+        function buttonStop(){
+          clearInterval(myFunctionSet);
+          indx = 0; 
+        }
+
+        function buttonClear(){
+          newFunctClear();
+          myFunctionClear = setInterval(function(){
+            newFunctClear();
+          },1);
+        }
+
+        function newFunctClear(){
+          for(jdx=0;jdx<8;jdx++){
+            var indexClear = document.getElementById('cell' + jdx + '-' + idx);           
+              if (indexClear.classList.contains("changeColor")){
+                indexClear.classList.replace("changeColor", "cellsGrid");
+              }   
+          }             
+            idx++;
+              if(idx==16){
+                clearInterval(myFunctionClear);
+                idx = 0;
+              }
+        }
+
+       
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
